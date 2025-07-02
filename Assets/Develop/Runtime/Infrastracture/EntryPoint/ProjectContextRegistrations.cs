@@ -18,7 +18,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.EntryPoint
 
             container.RegisterAsSingle(CreateResourcesAssetsLoader);
 
-            container.RegisterAsSingle(CreateSceneLoderService);
+            container.RegisterAsSingle(CreateSceneLoaderService);
 
             container.RegisterAsSingle<ILoadingScreen>(CreateLoadingScreen);
 
@@ -33,7 +33,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.EntryPoint
                 );
 
 
-        private static SceneLoaderService CreateSceneLoderService(DIContainer c) => new SceneLoaderService();
+        private static SceneLoaderService CreateSceneLoaderService(DIContainer c) => new SceneLoaderService();
 
         private static ConfigsProviderService CreateConfigsProviderService(DIContainer c)
         {
