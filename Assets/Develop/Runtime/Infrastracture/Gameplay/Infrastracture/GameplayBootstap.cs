@@ -26,7 +26,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Gameplay.Infrastracture
 
         public override IEnumerator Initialize()
         {           
-            Debug.Log($"Вы попали на уровень {_inputArgs.LevelNumber}");
+            Debug.Log($"Выбран режим {_inputArgs.GameMode}");
 
             Debug.Log("Инициализация геймплейной сцены.");
 

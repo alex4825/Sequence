@@ -1,4 +1,5 @@
 using Assets._Project.Develop.Runtime.Utilities.AssetsManagement;
+using Assets.Develop.Runtime.Infrastracture.Gameplay.Mehanics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Assets._Project.Develop.Runtime.Utilities.ConfigsManagement
 
         private readonly Dictionary<Type, string> _configsResourcesPaths = new()
         {
-
+            {typeof(GameModesToSymbolsConfig), "Configs/GameModesToSymbolsConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)

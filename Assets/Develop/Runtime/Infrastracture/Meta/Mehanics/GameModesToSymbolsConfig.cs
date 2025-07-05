@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Develop.Runtime.Infrastracture.Gameplay.Mehanics
 {
-    [CreateAssetMenu(fileName = "GameModesConfig", menuName = "Configs/GameModesConfig")]
+    [CreateAssetMenu(fileName = "GameModesToSymbolsConfig", menuName = "Configs/GameModesToSymbolsConfig")]
     public class GameModesToSymbolsConfig : ScriptableObject
     {
         public GameModeSymbolsWrapper[] GameModesToSymbols = new GameModeSymbolsWrapper[Enum.GetNames(typeof(GameModes)).Length];
