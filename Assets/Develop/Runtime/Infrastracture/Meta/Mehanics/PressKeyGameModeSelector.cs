@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Assets.Develop.Runtime.Infrastracture.Gameplay.Mehanics;
+using System;
 using UnityEngine;
 
 namespace Assets.Develop.Runtime.Infrastracture.Meta.Mehanics
 {
     public class PressKeyGameModeSelector : IGameModeSelector
     {
-        public event Action NumbersGameModeSelected;
-        public event Action LettersGameModeSelected;
+        public event Action<GameModes> GameModeSelected;
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                NumbersGameModeSelected?.Invoke();
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-                LettersGameModeSelected?.Invoke();
+            if (Input.GetKeyDown(KeyCode.Q))
+                GameModeSelected?.Invoke(GameModes.Numbers);
+            else if (Input.GetKeyDown(KeyCode.W))
+                GameModeSelected?.Invoke(GameModes.Letters);
         }
     }
 }

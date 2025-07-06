@@ -6,12 +6,15 @@ using Assets.Develop.Runtime.Infrastracture.Gameplay.Mehanics;
 using Assets.Develop.Runtime.Infrastracture.Meta.Mehanics;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
 {
     public class MainMenuBootstrap : SceneBootsprap
     {
+        [SerializeField] private TMP_InputField _sequenceInputField;
+
         private DIContainer _container;
         private IGameModeSelector _gameModeSelector;
 
@@ -28,8 +31,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             Debug.Log("Инициализация сцены главного меню.");
 
             _gameModeSelector = _container.Resolve<IGameModeSelector>();
-            _gameModeSelector.NumbersGameModeSelected += OnNumbersGameModeSelected;
-            _gameModeSelector.LettersGameModeSelected += OnLettersGameModeSelected;
+            _gameModeSelector.GameModeSelected += OnGameModeSelected;
 
             yield break;
         }
@@ -49,24 +51,25 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             }
         }
 
-        private void OnLettersGameModeSelected()
+        private void OnGameModeSelected(GameModes gameMode)
         {
-            _gameModeSelector.LettersGameModeSelected -= OnLettersGameModeSelected;
-            StartGameplay(GameModes.Letters);
+            if (int.TryParse(_sequenceInputField.text, out int sequenceLength) && sequenceLength > 0)
+            {
+                _gameModeSelector.GameModeSelected -= OnGameModeSelected;
+                StartGameplay(gameMode, sequenceLength);
+            }
+            else
+            {
+                Debug.Log("Enter positive int number greater than 0");
+            }
         }
 
-        private void OnNumbersGameModeSelected()
-        {
-            _gameModeSelector.NumbersGameModeSelected -= OnNumbersGameModeSelected;
-            StartGameplay(GameModes.Numbers);
-        }
-
-        private void StartGameplay(GameModes gameMode)
+        private void StartGameplay(GameModes gameMode, int sequenceLength)
         {
             SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
             ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
 
-            coroutinesPerformer.StartPerform(sceneSwitcherService.ProcesSwitchTo(Scenes.Gameplay, new GameplayInputArgs(gameMode)));
+            coroutinesPerformer.StartPerform(sceneSwitcherService.ProcesSwitchTo(Scenes.Gameplay, new GameplayInputArgs(gameMode, sequenceLength)));
         }
     }
 }
