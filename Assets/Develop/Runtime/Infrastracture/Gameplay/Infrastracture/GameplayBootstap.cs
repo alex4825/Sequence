@@ -1,5 +1,4 @@
 ﻿using Assets._Project.Develop.Runtime.Infrastracture.DI;
-using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using System.Collections;
 using System;
@@ -19,12 +18,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Gameplay.Infrastracture
 
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
-
-        private bool _isRunning;
-
-        private string _symbols;
-        private GameMode _gameMode;
-        private SequenceGenerator _sequenceGenerator;
+        private GameplayCycle _gameplayCycle;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -44,8 +38,12 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Gameplay.Infrastracture
 
             Debug.Log("Инициализация геймплейной сцены.");
 
-            _symbols = GetSymbolsFrom(_inputArgs.GameMode);
-            _sequenceGenerator = new SequenceGenerator(_symbols);
+            _gameplayCycle = new(
+                GetSymbolsFrom(_inputArgs.GameMode),
+                _inputArgs.SequenceLenght,
+                _gameplayView,
+                _restartPopup, 
+                _container);
 
             yield break;
         }
@@ -54,65 +52,13 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Gameplay.Infrastracture
         {
             Debug.Log("Старт геймплейной сцены.");
 
-            _isRunning = true;
-
-            StartNewGame();
+            _gameplayCycle.Launch();
         }
 
         private void Update()
         {
-            if (_isRunning)
-            {
-                /*if (Input.GetKeyDown(KeyCode.Escape))
-                    OpenMenu();*/
-
-                _gameMode?.Update();
-            }
-        }
-
-        private void StartNewGame()
-        {
-            string randomSequence = _sequenceGenerator.GetRandom(_inputArgs.SequenceLenght);
-
-            _gameMode = new(randomSequence);
-            _gameplayView.SetText(randomSequence);
-
-            _gameMode.Win += OnGameModeWin;
-            _gameMode.Defeat += OnGameModeDefeat;
-
-            _gameMode.Start();
-        }
-
-        private void OnGameModeDefeat()
-        {
-            Debug.Log("Defeat");
-            StartCoroutine(EndGame());
-        }
-
-        private void OnGameModeWin()
-        {
-            Debug.Log("Win");
-            StartCoroutine(EndGame());
-        }
-
-        private IEnumerator EndGame()
-        {
-            _gameMode.Win -= OnGameModeWin;
-            _gameMode.Defeat -= OnGameModeDefeat;
-
-            _restartPopup.SetText($"Press {KeyCode.F.ToString()} to restart or press {KeyCode.Escape.ToString()} to go to menu");
-
-            _restartPopup.Show();
-
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Escape));
-
-            if (Input.GetKeyDown(KeyCode.F))
-                StartNewGame();
-            else if (Input.GetKeyDown(KeyCode.Escape))
-                OpenMenu();
-
-            _restartPopup.Hide();
-        }
+            _gameplayCycle?.Update();
+        }        
 
         private string GetSymbolsFrom(GameModes gameMode)
         {
@@ -121,14 +67,6 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Gameplay.Infrastracture
             string symbols = gameModesToSymbols.First(gameModeToSymbols => gameModeToSymbols.GameMode == gameMode).Symbols;
 
             return symbols;
-        }
-
-        private void OpenMenu()
-        {
-            SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
-            ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
-
-            coroutinesPerformer.StartPerform(sceneSwitcherService.ProcesSwitchTo(Scenes.MainMenu));
         }
     }
 }
