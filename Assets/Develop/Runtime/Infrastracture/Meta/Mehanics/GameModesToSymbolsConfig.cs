@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Develop.Runtime.Infrastracture.Gameplay.Mehanics
@@ -6,9 +7,11 @@ namespace Assets.Develop.Runtime.Infrastracture.Gameplay.Mehanics
     [CreateAssetMenu(fileName = "GameModesToSymbolsConfig", menuName = "Configs/GameModesToSymbolsConfig")]
     public class GameModesToSymbolsConfig : ScriptableObject
     {
-        public GameModeSymbolsWrapper[] GameModesToSymbols = new GameModeSymbolsWrapper[Enum.GetNames(typeof(GameModes)).Length];
-    }
+        [SerializeField] private GameModeSymbolsWrapper[] GameModesToSymbols = new GameModeSymbolsWrapper[Enum.GetNames(typeof(GameModes)).Length];
 
+        public string GetSymbolsFrom(GameModes gameMode)
+             => GameModesToSymbols.First(gameModeToSymbols => gameModeToSymbols.GameMode == gameMode).Symbols;
+    }
 
     [Serializable]
     public class GameModeSymbolsWrapper

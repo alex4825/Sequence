@@ -10,7 +10,7 @@ namespace Assets.Develop.Runtime.Infrastracture.Gameplay.Mehanics
 {
     public class GameplayCycle
     {
-        private string _symbols;
+        private GameModes _gameModeType;
         private int _sequenceLenght;
         private GameplayView _gameplayView;
         private Popup _restartPopup;
@@ -19,15 +19,15 @@ namespace Assets.Develop.Runtime.Infrastracture.Gameplay.Mehanics
         private GameMode _gameMode;
         private SequenceGenerator _sequenceGenerator;
 
-        public GameplayCycle(string symbols, int sequenceLenght, GameplayView gameplayView, Popup restartPopup, DIContainer container)
+        public GameplayCycle(GameModes gameModeType, int sequenceLenght, GameplayView gameplayView, Popup restartPopup, DIContainer container)
         {
-            _symbols = symbols;
+            _gameModeType = gameModeType;
             _sequenceLenght = sequenceLenght;
             _gameplayView = gameplayView;
             _restartPopup = restartPopup;
             _container = container;
 
-            _sequenceGenerator = new SequenceGenerator(symbols);
+            _sequenceGenerator = new SequenceGenerator(_container.Resolve<SymbolsGetter>().GetFrom(_gameModeType));
         }
 
         public void Launch()

@@ -39,7 +39,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Gameplay.Infrastracture
             Debug.Log("Инициализация геймплейной сцены.");
 
             _gameplayCycle = new(
-                GetSymbolsFrom(_inputArgs.GameMode),
+                _inputArgs.GameMode,
                 _inputArgs.SequenceLenght,
                 _gameplayView,
                 _restartPopup, 
@@ -59,14 +59,5 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Gameplay.Infrastracture
         {
             _gameplayCycle?.Update();
         }        
-
-        private string GetSymbolsFrom(GameModes gameMode)
-        {
-            ConfigsProviderService configsProviderService = _container.Resolve<ConfigsProviderService>();
-            GameModeSymbolsWrapper[] gameModesToSymbols = configsProviderService.GetConfig<GameModesToSymbolsConfig>().GameModesToSymbols;
-            string symbols = gameModesToSymbols.First(gameModeToSymbols => gameModeToSymbols.GameMode == gameMode).Symbols;
-
-            return symbols;
-        }
     }
 }
