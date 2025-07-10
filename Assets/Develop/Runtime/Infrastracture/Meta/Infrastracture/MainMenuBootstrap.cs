@@ -1,10 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Infrastracture.DI;
-using Assets._Project.Develop.Runtime.Infrastracture.Gameplay.Infrastracture;
-using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
-using Assets.Develop.Runtime.Infrastracture.Gameplay.Mehanics;
 using Assets.Develop.Runtime.Infrastracture.Meta.Mehanics;
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -31,7 +27,6 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             Debug.Log("Инициализация сцены главного меню.");
 
             _gameModeSelector = _container.Resolve<IGameModeSelector>();
-            _gameModeSelector.GameModeSelected += OnGameModeSelected;
 
             yield break;
         }
@@ -41,6 +36,8 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             Debug.Log("Старт сцены главного меню.");
 
             _isRunning = true;
+
+            _container.Resolve<MetaToGameplayTransitor>().StartListen(_sequenceInputField, _gameModeSelector);
         }
 
         private void Update()
@@ -49,27 +46,6 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             {
                 _gameModeSelector?.Update();
             }
-        }
-
-        private void OnGameModeSelected(GameModes gameMode)
-        {
-            if (int.TryParse(_sequenceInputField.text, out int sequenceLength) && sequenceLength > 0)
-            {
-                _gameModeSelector.GameModeSelected -= OnGameModeSelected;
-                StartGameplay(gameMode, sequenceLength);
-            }
-            else
-            {
-                Debug.Log("Enter positive int number greater than 0");
-            }
-        }
-
-        private void StartGameplay(GameModes gameMode, int sequenceLength)
-        {
-            SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
-            ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
-
-            coroutinesPerformer.StartPerform(sceneSwitcherService.ProcesSwitchTo(Scenes.Gameplay, new GameplayInputArgs(gameMode, sequenceLength)));
         }
     }
 }

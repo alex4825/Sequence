@@ -11,9 +11,13 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             Debug.Log("Процесс регистрации сервисов на сцене главного меню");
 
             container.RegisterAsSingle<IGameModeSelector>(CreatePressKeyGameModeSelector);
+            container.RegisterAsSingle(CreateMetaToGameplayTransitor);
         }
 
         private static PressKeyGameModeSelector CreatePressKeyGameModeSelector(DIContainer container)
             => new PressKeyGameModeSelector();
+        
+        private static MetaToGameplayTransitor CreateMetaToGameplayTransitor(DIContainer container)
+            => new MetaToGameplayTransitor(container);
     }
 }
