@@ -11,11 +11,11 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Features.Wallet
     {
         private readonly Dictionary<CurrencyTypes, ReactiveVariable<int>> _currencies;
 
-        public WalletService(Dictionary<CurrencyTypes, ReactiveVariable<int>> currencies, PlayerDataProvider playerDataProvoder)
+        public WalletService(Dictionary<CurrencyTypes, ReactiveVariable<int>> currencies, PlayerDataProvider playerDataProvider)
         {
             _currencies = new(currencies);
-            playerDataProvoder.RegisterReader(this);
-            playerDataProvoder.RegisterWriter(this);
+            playerDataProvider.RegisterReader(this);
+            playerDataProvider.RegisterWriter(this);
         }
 
         public List<CurrencyTypes> AvailableCurrencies => _currencies.Keys.ToList();

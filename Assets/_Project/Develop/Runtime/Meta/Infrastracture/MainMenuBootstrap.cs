@@ -46,6 +46,8 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             {
                 _gameModeSelector?.Update();
             }
+
+
         }
     }
 }

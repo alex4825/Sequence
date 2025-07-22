@@ -1,7 +1,11 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.Utils;
+﻿using Assets._Project.Develop.Runtime.Configs.Meta;
+using Assets._Project.Develop.Runtime.Gameplay.Utils;
 using Assets._Project.Develop.Runtime.Infrastracture.DI;
+using Assets._Project.Develop.Runtime.Infrastracture.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Meta.Features;
+using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using Assets.Develop.Runtime.Infrastracture.Gameplay.Views;
 using System.Collections;
@@ -19,6 +23,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
 
         private GameMode _gameMode;
         private SequenceGenerator _sequenceGenerator;
+        private WalletService _walletService;
+
+        private PlayerDataProvider _playerDataProvider;
+        private int _winCost;
+        private int _defeatCost;
 
         public GameplayCycle(GameModes gameModeType, int sequenceLenght, GameplayView gameplayView, Popup restartPopup, DIContainer container)
         {
@@ -29,6 +38,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
             _container = container;
 
             _sequenceGenerator = new SequenceGenerator(_container.Resolve<SymbolsGetter>().GetFrom(_gameModeType));
+
+            _playerDataProvider = _container.Resolve<PlayerDataProvider>();
+            _walletService = _container.Resolve<WalletService>();
+
+            CostsConfig costsConfig = _container.Resolve<ConfigsProviderService>().GetConfig<CostsConfig>();
+            _winCost = costsConfig.WinCost;
+            _defeatCost = costsConfig.DefeatCost;
         }
 
         public void Launch()
@@ -52,17 +68,22 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
         private void OnGameModeDefeat()
         {
             Debug.Log("Defeat");
+            _walletService.Spend(CurrencyTypes.Gold, _defeatCost);
             _container.Resolve<ICoroutinesPerformer>().StartPerform(EndGame());
         }
 
         private void OnGameModeWin()
         {
             Debug.Log("Win");
+            _walletService.Add(CurrencyTypes.Gold, _winCost);
             _container.Resolve<ICoroutinesPerformer>().StartPerform(EndGame());
         }
 
         private IEnumerator EndGame()
         {
+            yield return _playerDataProvider.Save();
+            Debug.Log($"Золота осталось: {_walletService.GetCurrency(CurrencyTypes.Gold).Value}");
+
             _gameMode.Win -= OnGameModeWin;
             _gameMode.Defeat -= OnGameModeDefeat;
 
