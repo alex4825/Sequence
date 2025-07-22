@@ -10,6 +10,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Features
         private VictoryDefeatCounter _victoryDefeatCounter;
         private int _resetCost;
 
+        private bool _isGameResetted;
+
         public GameResetter(WalletService walletService, VictoryDefeatCounter victoryDefeatCounter, PlayerDataProvider playerDataProvider, int resetCost)
         {
             _walletService = walletService;
@@ -25,6 +27,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features
             {
                 _walletService.Spend(CurrencyTypes.Gold, _resetCost);
                 _victoryDefeatCounter.Reset();
+                _isGameResetted = true;
                 return true;
             }
             else
@@ -35,8 +38,12 @@ namespace Assets._Project.Develop.Runtime.Meta.Features
 
         public void WriteTo(PlayerData data)
         {
-            data.VictoryCount = 0;
-            data.DefeatCount = 0;
+            if (_isGameResetted)
+            {
+                data.VictoryCount = 0;
+                data.DefeatCount = 0;
+                _isGameResetted = false;
+            }
         }
     }
 }
