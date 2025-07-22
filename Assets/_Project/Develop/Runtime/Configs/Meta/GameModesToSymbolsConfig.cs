@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Assets._Project.Develop.Runtime.Meta.Features;
+using System;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.Meta.Features
+namespace Assets._Project.Develop.Runtime.Configs.Meta
 {
     [CreateAssetMenu(fileName = "GameModesToSymbolsConfig", menuName = "Configs/GameModesToSymbolsConfig")]
     public class GameModesToSymbolsConfig : ScriptableObject
