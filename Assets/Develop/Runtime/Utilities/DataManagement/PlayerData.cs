@@ -1,14 +1,10 @@
-﻿//using Assets._Project.Develop.Runtime.Infrastracture.Meta.Features.Wallet;
-using System;
+﻿using Assets._Project.Develop.Runtime.Infrastracture.Meta.Features.Wallet;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets._Project.Develop.Runtime.Utilities.DataManagement
 {
     public class PlayerData : ISaveData
     {
-        //public Dictionary<CurrencyTypes, int> WalletData;
+        public Dictionary<CurrencyTypes, int> WalletData;
     }
 }
