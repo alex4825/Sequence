@@ -90,7 +90,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
         private IEnumerator EndGame()
         {
             yield return _playerDataProvider.Save();
-            Debug.Log($"Золота осталось: {_walletService.GetCurrency(CurrencyTypes.Gold).Value}");
 
             _gameMode.Win -= OnGameModeWin;
             _gameMode.Defeat -= OnGameModeDefeat;

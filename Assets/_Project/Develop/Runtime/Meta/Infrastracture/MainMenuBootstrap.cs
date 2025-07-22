@@ -1,5 +1,10 @@
-﻿using Assets._Project.Develop.Runtime.Infrastracture.DI;
+﻿using Assets._Project.Develop.Runtime.Configs.Meta;
+using Assets._Project.Develop.Runtime.Infrastracture.DI;
+using Assets._Project.Develop.Runtime.Infrastracture.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Meta.Features;
+using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
+using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using System.Collections;
 using TMPro;
@@ -14,6 +19,12 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
         private DIContainer _container;
         private IGameModeSelector _gameModeSelector;
 
+        private WalletService _walletService;
+        private VictoryDefeatCounter _victoryDefeatCounter;
+        private GameResetter _gameResetter;
+
+        private PlayerDataProvider _playerDataProvider;
+
         private bool _isRunning;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
@@ -27,6 +38,10 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             Debug.Log("Инициализация сцены главного меню.");
 
             _gameModeSelector = _container.Resolve<IGameModeSelector>();
+            _walletService = _container.Resolve<WalletService>();
+            _victoryDefeatCounter = _container.Resolve<VictoryDefeatCounter>();
+            _gameResetter = _container.Resolve<GameResetter>();
+            _playerDataProvider = _container.Resolve<PlayerDataProvider>();
 
             yield break;
         }
@@ -47,7 +62,24 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
                 _gameModeSelector?.Update();
             }
 
+            if (Input.GetKeyDown(KeyCode.G))
+                Debug.Log($"Золота осталось: {_walletService.GetCurrency(CurrencyTypes.Gold).Value}");
 
+            if (Input.GetKeyDown(KeyCode.H))
+                Debug.Log($"Побед: {_victoryDefeatCounter.VictoryCount.Value}, поражений: {_victoryDefeatCounter.DefeatCount.Value}");
+
+            if (Input.GetKeyDown(KeyCode.R))
+                if (_gameResetter.TryReset())
+                {
+                    _container.Resolve<ICoroutinesPerformer>().StartPerform(_playerDataProvider.Save());
+                    Debug.Log($"Победы и поражения сброшены до 0.");
+                }
+                else
+                {
+                    Debug.Log($"Недостаточно золота для сброса. " +
+                        $"Нужно {_container.Resolve<ConfigsProviderService>().GetConfig<CostsConfig>().GameResetCost}. " +
+                        $"У вас {_walletService.GetCurrency(CurrencyTypes.Gold).Value}");
+                }
         }
     }
 }
