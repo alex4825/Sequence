@@ -7,7 +7,7 @@ namespace Assets._Project.Develop.Runtime.Utilities.DataManagement.SaveData
     {
         public Dictionary<CurrencyTypes, int> WalletData;
 
-        public int WinCount;
+        public int VictoryCount;
 
         public int DefeatCount;
     }

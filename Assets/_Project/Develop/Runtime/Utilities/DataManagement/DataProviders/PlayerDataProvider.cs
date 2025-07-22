@@ -21,7 +21,7 @@ namespace Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders
             return new PlayerData()
             {
                 WalletData = InitWalletData(),
-                WinCount = 0,
+                VictoryCount = 0,
                 DefeatCount = 0
             };
         }

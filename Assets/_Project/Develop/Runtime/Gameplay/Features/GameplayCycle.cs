@@ -24,6 +24,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
         private GameMode _gameMode;
         private SequenceGenerator _sequenceGenerator;
         private WalletService _walletService;
+        private VictoryDefeatCounter _victoryDefeatCounter;
 
         private PlayerDataProvider _playerDataProvider;
         private int _winCost;
@@ -41,6 +42,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
 
             _playerDataProvider = _container.Resolve<PlayerDataProvider>();
             _walletService = _container.Resolve<WalletService>();
+            _victoryDefeatCounter = _container.Resolve<VictoryDefeatCounter>();
 
             CostsConfig costsConfig = _container.Resolve<ConfigsProviderService>().GetConfig<CostsConfig>();
             _winCost = costsConfig.WinCost;
@@ -68,14 +70,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
         private void OnGameModeDefeat()
         {
             Debug.Log("Defeat");
+
             _walletService.Spend(CurrencyTypes.Gold, _defeatCost);
+            _victoryDefeatCounter.AddDefeat();
+
             _container.Resolve<ICoroutinesPerformer>().StartPerform(EndGame());
         }
 
         private void OnGameModeWin()
         {
             Debug.Log("Win");
+
             _walletService.Add(CurrencyTypes.Gold, _winCost);
+            _victoryDefeatCounter.AddVictory();
+
             _container.Resolve<ICoroutinesPerformer>().StartPerform(EndGame());
         }
 

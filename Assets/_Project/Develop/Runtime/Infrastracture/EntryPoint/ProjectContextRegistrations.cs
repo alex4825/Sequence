@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System;
 using Object = UnityEngine.Object;
 using UnityEngine;
+using Assets._Project.Develop.Runtime.Meta.Features;
 
 namespace Assets._Project.Develop.Runtime.Infrastracture.EntryPoint
 {
@@ -39,7 +40,12 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.EntryPoint
             container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
 
             container.RegisterAsSingle(CreatePlayerDataProvider);
+
+            container.RegisterAsSingle(CreateVictoryDefeatCounter).NonLazy();
         }
+
+        private static VictoryDefeatCounter CreateVictoryDefeatCounter(DIContainer container)
+            => new VictoryDefeatCounter(container.Resolve<PlayerDataProvider>());
 
         private static PlayerDataProvider CreatePlayerDataProvider(DIContainer container)
             => new PlayerDataProvider(container.Resolve<ISaveLoadService>(), container.Resolve<ConfigsProviderService>());
