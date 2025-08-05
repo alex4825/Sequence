@@ -14,8 +14,6 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
 {
     public class MainMenuBootstrap : SceneBootsprap
     {
-        [SerializeField] private TMP_InputField _sequenceInputField;
-
         private DIContainer _container;
         private IGameModeSelector _gameModeSelector;
 
@@ -52,7 +50,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
 
             _isRunning = true;
 
-            _container.Resolve<MetaToGameplayTransitor>().StartListen(_sequenceInputField, _gameModeSelector);
+            //_container.Resolve<MetaToGameplayTransitor>().StartListen(_sequenceInputField, _gameModeSelector);
         }
 
         private void Update()

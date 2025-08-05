@@ -16,6 +16,8 @@ using System;
 using Object = UnityEngine.Object;
 using UnityEngine;
 using Assets._Project.Develop.Runtime.Meta.Features;
+using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.UI;
 
 namespace Assets._Project.Develop.Runtime.Infrastracture.EntryPoint
 {
@@ -42,7 +44,17 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.EntryPoint
             container.RegisterAsSingle(CreatePlayerDataProvider);
 
             container.RegisterAsSingle(CreateVictoryDefeatCounter).NonLazy();
+
+            container.RegisterAsSingle(CreateProjectPresentersFactory);
+
+            container.RegisterAsSingle(CreateViewsFactory);
         }
+
+        private static ViewsFactory CreateViewsFactory(DIContainer container)
+            => new ViewsFactory(container.Resolve<ResourcesAssetsLoader>());
+
+        private static ProjectPresentersFactory CreateProjectPresentersFactory(DIContainer container)
+            => new ProjectPresentersFactory(container);
 
         private static VictoryDefeatCounter CreateVictoryDefeatCounter(DIContainer container)
             => new VictoryDefeatCounter(container.Resolve<PlayerDataProvider>());

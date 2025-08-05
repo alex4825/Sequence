@@ -7,7 +7,6 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
     {
         private readonly MainMenuUIRoot _uiRoot;
 
-
         public MainMenuPopupService(
             ViewsFactory viewsFactory,
             ProjectPresentersFactory presentersFactory,

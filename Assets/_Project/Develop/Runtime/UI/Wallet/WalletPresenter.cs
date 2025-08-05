@@ -8,7 +8,7 @@ namespace Assets._Project.Develop.Runtime.UI.Wallet
     public class WalletPresenter : IPresenter
     {
         private readonly WalletService _walletService;
-        private readonly ProjectPresentersFactory _presentersFactory;
+        private readonly ProjectPresentersFactory _projectPresentersFactory;
         private readonly ViewsFactory _viewsFactory;
 
         private readonly IconTextListView _view;
@@ -17,7 +17,7 @@ namespace Assets._Project.Develop.Runtime.UI.Wallet
         public WalletPresenter(WalletService walletService, ProjectPresentersFactory presentersFactory, ViewsFactory viewsFactory, IconTextListView view)
         {
             _walletService = walletService;
-            _presentersFactory = presentersFactory;
+            _projectPresentersFactory = presentersFactory;
             _viewsFactory = viewsFactory;
             _view = view;
         }
@@ -30,7 +30,7 @@ namespace Assets._Project.Develop.Runtime.UI.Wallet
 
                 _view.Add(currencyView);
 
-                CurrencyPresenter currencyPresenter = _presentersFactory.CreateCurrencyPresenter(
+                CurrencyPresenter currencyPresenter = _projectPresentersFactory.CreateCurrencyPresenter(
                     currencyView, 
                     _walletService.GetCurrency(currencyType),
                     currencyType);

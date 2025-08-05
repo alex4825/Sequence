@@ -15,7 +15,8 @@ namespace Assets._Project.Develop.Runtime.Utilities.ConfigsManagement
         {
             {typeof(GameModesToSymbolsConfig), "Configs/GameModesToSymbolsConfig" },
             {typeof(StartWalletConfig), "Configs/StartWalletConfig" },
-            {typeof(CostsConfig), "Configs/CostsConfig" }
+            {typeof(CostsConfig), "Configs/CostsConfig" },
+            {typeof(CurrencyIconsConfig), "Configs/CurrencyIconsConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)

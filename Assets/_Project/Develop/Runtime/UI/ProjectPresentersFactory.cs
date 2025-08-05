@@ -3,6 +3,7 @@ using Assets._Project.Develop.Runtime.Infrastracture.DI;
 using Assets._Project.Develop.Runtime.Infrastracture.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.UI.Other;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
@@ -17,6 +18,11 @@ namespace Assets._Project.Develop.Runtime.UI
         public ProjectPresentersFactory(DIContainer container)
         {
             _container = container;
+        }
+
+        public NotifyPopupPresenter CreateNotifyPopupPresenter(NotifyPopupView view)
+        {
+            return new NotifyPopupPresenter(view, _container.Resolve<ICoroutinesPerformer>());
         }
 
         public CurrencyPresenter CreateCurrencyPresenter(

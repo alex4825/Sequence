@@ -1,4 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Infrastracture.DI;
+using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
+using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 
 namespace Assets._Project.Develop.Runtime.UI.MainMenu
 {
@@ -16,7 +18,9 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             return new MainMenuScreenPresenter(
                 view, 
                 _container.Resolve<ProjectPresentersFactory>(),
-                _container.Resolve<MainMenuPopupService>());
+                _container.Resolve<MainMenuPopupService>(),
+                _container.Resolve<SceneSwitcherService>(),
+                _container.Resolve<ICoroutinesPerformer>());
         }
     }
 }

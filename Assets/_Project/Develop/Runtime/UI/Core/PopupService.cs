@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Project.Develop.Runtime.UI.Other;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,17 @@ namespace Assets._Project.Develop.Runtime.UI.Core
         }
 
         protected abstract Transform PopupLayer { get; }
+
+        public NotifyPopupPresenter OpenNotifyPopup()
+        {
+            NotifyPopupView view = ViewsFactory.Create<NotifyPopupView>(ViewIDs.NotifyView, PopupLayer);
+
+            NotifyPopupPresenter popup = _presentersFactory.CreateNotifyPopupPresenter(view);
+
+            OnPopupCreated(popup, view);
+
+            return popup;
+        }
 
         public void ClosePopup(PopupPresenterBase popup)
         {
