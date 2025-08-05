@@ -18,10 +18,6 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
         {
             Debug.Log("Процесс регистрации сервисов на сцене главного меню");
 
-            container.RegisterAsSingle<IGameModeSelector>(CreatePressKeyGameModeSelector);
-
-            container.RegisterAsSingle(CreateMetaToGameplayTransitor);
-
             container.RegisterAsSingle(CreateGameResetter);
 
             container.RegisterAsSingle(CreateMainMenuUIRoot).NonLazy();
@@ -72,11 +68,5 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
                 container.Resolve<PlayerDataProvider>(),
                 container.Resolve<ConfigsProviderService>().GetConfig<CostsConfig>().GameResetCost
                 );
-
-        private static PressKeyGameModeSelector CreatePressKeyGameModeSelector(DIContainer container)
-            => new PressKeyGameModeSelector();
-        
-        private static MetaToGameplayTransitor CreateMetaToGameplayTransitor(DIContainer container)
-            => new MetaToGameplayTransitor(container);
     }
 }
