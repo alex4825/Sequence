@@ -94,7 +94,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _disposableInputText.Dispose();
             _disposableSequence.Dispose();
 
-            _playerDataProvider.Save();
+            _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
             _gameplayCycle.Launch();
         }
 
