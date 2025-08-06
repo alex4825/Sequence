@@ -6,6 +6,7 @@
         public const string DefeatView = nameof(DefeatView);
         public const string WinView = nameof(WinView);
         public const string MainMenuScreen = nameof(MainMenuScreen);
+        public const string GameplayScreen = nameof(GameplayScreen);
         public const string NotifyView = nameof(NotifyView);
         public const string WinDefeatView = nameof(WinDefeatView);
     }
