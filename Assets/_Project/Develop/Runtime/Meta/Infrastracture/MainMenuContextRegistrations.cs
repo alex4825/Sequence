@@ -34,12 +34,12 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             return new MainMenuPopupService(
                 container.Resolve<ViewsFactory>(),
                 container.Resolve<ProjectPresentersFactory>(),
-                container.Resolve<MainMenuUIRoot>());
+                container.Resolve<UIRoot>());
         }
 
         private static MainMenuScreenPresenter CreateMainMenuScreenPresenter(DIContainer container)
         {
-            MainMenuUIRoot uiRoot = container.Resolve<MainMenuUIRoot>();
+            UIRoot uiRoot = container.Resolve<UIRoot>();
             MainMenuScreenView view = container.Resolve<ViewsFactory>().Create<MainMenuScreenView>(ViewIDs.MainMenuScreen, uiRoot.HUDLayer);
 
             MainMenuScreenPresenter presenter = container.Resolve<MainMenuPresentersFactory>().CreateMainMenuScreen(view);
@@ -52,13 +52,9 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             return new MainMenuPresentersFactory(container);
         }
 
-        private static MainMenuUIRoot CreateMainMenuUIRoot(DIContainer c)
+        private static UIRoot CreateMainMenuUIRoot(DIContainer container)
         {
-            ResourcesAssetsLoader resourcesAssetsLoader = c.Resolve<ResourcesAssetsLoader>();
-
-            MainMenuUIRoot mainMenuUIRootPrefab = resourcesAssetsLoader.Load<MainMenuUIRoot>("UI/MainMenu/MainMenuUIRoot");
-
-            return Object.Instantiate(mainMenuUIRootPrefab);
+            return container.Resolve<ViewsFactory>().Create<UIRoot>(ViewIDs.UIRoot);
         }
 
         private static GameResetter CreateGameResetter(DIContainer container)

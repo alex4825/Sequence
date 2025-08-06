@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features
 {
@@ -11,6 +6,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
     {
         public event Action Win;
         public event Action Defeat;
+        public event Action<char> SymbolEntered;
 
         private string _sequence;
         private int _currentIndex;
@@ -43,6 +39,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
         {
             if (char.ToLower(key) == char.ToLower(_sequence[_currentIndex]))
             {
+                SymbolEntered?.Invoke(key);
                 _currentIndex++;
             }
             else

@@ -9,5 +9,6 @@
         public const string GameplayScreen = nameof(GameplayScreen);
         public const string NotifyView = nameof(NotifyView);
         public const string WinDefeatView = nameof(WinDefeatView);
+        public const string UIRoot = nameof(UIRoot);
     }
 }

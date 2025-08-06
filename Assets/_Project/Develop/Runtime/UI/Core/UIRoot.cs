@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Assets._Project.Develop.Runtime.UI.MainMenu
+namespace Assets._Project.Develop.Runtime.UI.Core
 {
-    public class MainMenuUIRoot : MonoBehaviour
+    public class UIRoot : MonoBehaviour, IView
     {
         [field:SerializeField] public Transform HUDLayer {  get; private set; }
         [field: SerializeField] public Transform PopupsLayer { get; private set; }

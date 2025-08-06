@@ -3,8 +3,6 @@ using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using System.Collections;
 using System;
 using UnityEngine;
-using Assets.Develop.Runtime.Infrastracture.Gameplay.Views;
-using Assets._Project.Develop.Runtime.Gameplay.Utils;
 using Assets._Project.Develop.Runtime.Infrastracture;
 using Assets._Project.Develop.Runtime.Gameplay.Features;
 
@@ -12,9 +10,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastracture
 {
     public class GameplayBootstap : SceneBootsprap
     {
-        [SerializeField] private Popup _restartPopup;
-        [SerializeField] private GameplayView _gameplayView;
-
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
         private GameplayCycle _gameplayCycle;
@@ -37,12 +32,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastracture
 
             Debug.Log("Инициализация геймплейной сцены.");
 
-            _gameplayCycle = new(
-                _inputArgs.GameMode,
-                _inputArgs.SequenceLenght,
-                _gameplayView,
-                _restartPopup, 
-                _container);
+            _gameplayCycle = _container.Resolve<GameplayCycle>();
 
             yield break;
         }
@@ -51,7 +41,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastracture
         {
             Debug.Log("Старт геймплейной сцены.");
 
-            _gameplayCycle.Launch();
+            //_gameplayCycle.Launch();
         }
 
         private void Update()

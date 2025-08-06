@@ -1,15 +1,11 @@
-﻿using Assets._Project.Develop.Runtime.Configs.Meta;
-using Assets._Project.Develop.Runtime.Gameplay.Infrastracture;
-using Assets._Project.Develop.Runtime.Infrastracture.Meta.Features.Wallet;
+﻿using Assets._Project.Develop.Runtime.Gameplay.Infrastracture;
 using Assets._Project.Develop.Runtime.Meta.Features;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Other;
 using Assets._Project.Develop.Runtime.UI.Wallet;
-using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
 using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
