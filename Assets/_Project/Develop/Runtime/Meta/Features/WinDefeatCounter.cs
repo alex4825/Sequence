@@ -4,12 +4,12 @@ using Assets._Project.Develop.Runtime.Utilities.Reactive;
 
 namespace Assets._Project.Develop.Runtime.Meta.Features
 {
-    public class VictoryDefeatCounter : IDataReader<PlayerData>, IDataWriter<PlayerData>
+    public class WinDefeatCounter : IDataReader<PlayerData>, IDataWriter<PlayerData>
     {
         private ReactiveVariable<int> _victoryCount;
         private ReactiveVariable<int> _defeatCount;
 
-        public VictoryDefeatCounter(PlayerDataProvider playerDataProvider)
+        public WinDefeatCounter(PlayerDataProvider playerDataProvider)
         {
             _victoryCount = new ReactiveVariable<int>();
             _defeatCount = new ReactiveVariable<int>();
@@ -18,7 +18,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features
             playerDataProvider.RegisterReader(this);
         }
 
-        public IReadonlyVariable<int> VictoryCount => _victoryCount;
+        public IReadonlyVariable<int> WinCount => _victoryCount;
         public IReadonlyVariable<int> DefeatCount => _defeatCount;
 
         public void AddVictory() => _victoryCount.Value++;

@@ -64,7 +64,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
         private static GameResetter CreateGameResetter(DIContainer container)
             => new GameResetter(
                 container.Resolve<WalletService>(),
-                container.Resolve<VictoryDefeatCounter>(),
+                container.Resolve<WinDefeatCounter>(),
                 container.Resolve<PlayerDataProvider>(),
                 container.Resolve<ConfigsProviderService>().GetConfig<CostsConfig>().GameResetCost
                 );

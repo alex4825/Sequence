@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Meta;
 using Assets._Project.Develop.Runtime.Infrastracture.DI;
 using Assets._Project.Develop.Runtime.Infrastracture.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.Meta.Features;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Other;
@@ -19,6 +20,12 @@ namespace Assets._Project.Develop.Runtime.UI
         {
             _container = container;
         }
+
+        public WinDefeatPresenter CreateWinDefeatPresenter(TextListView view)
+            => new WinDefeatPresenter(this, _container.Resolve<ViewsFactory>(), view, _container.Resolve<WinDefeatCounter>());
+
+        public CountPresenter CreateCountPresenter(TextView view, IReadonlyVariable<int> count, string message)
+            => new CountPresenter(count, view, message);
 
         public NotifyPopupPresenter CreateNotifyPopupPresenter(NotifyPopupView view)
         {

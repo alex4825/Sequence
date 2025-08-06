@@ -12,10 +12,12 @@ namespace Assets._Project.Develop.Runtime.UI.CommonViews
 
         public IReadOnlyList<TElement> Elements => _elements;
 
-        public void Add(TElement element)
+        public void Add(params TElement[] elements)
         {
-            element.transform.SetParent(_parent, false);
-            _elements.Add(element);
+            foreach (var element in elements)
+                element.transform.SetParent(_parent, false);
+
+            _elements.AddRange(elements);
         }
 
         public void Remove(TElement element)

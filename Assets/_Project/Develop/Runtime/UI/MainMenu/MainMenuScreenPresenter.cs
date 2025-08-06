@@ -40,7 +40,8 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         {
             _view.StartGameplayButtonClicked += OnStartGameplayButtonClicked;
 
-            CreateWallet();
+            CreateWalletPresenter();
+            CreateWinDefeatPresenter();
 
             foreach (IPresenter childPresenter in _childPresenters)
                 childPresenter.Initialize();
@@ -56,7 +57,14 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             _childPresenters.Clear();
         }
 
-        private void CreateWallet()
+        private void CreateWinDefeatPresenter()
+        {
+            WinDefeatPresenter winDefeatPresenter = _projectPresentersFactory.CreateWinDefeatPresenter(_view.WinDefeatView);
+
+            _childPresenters.Add(winDefeatPresenter);
+        }
+
+        private void CreateWalletPresenter()
         {
             WalletPresenter walletPresenter = _projectPresentersFactory.CreateWalletPresenter(_view.WalletView);
 
@@ -72,7 +80,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             else
             {
                 NotifyPopupPresenter notifyPopupPresenter = _mainMenuPopupService.OpenNotifyPopup();
-                notifyPopupPresenter.SetView("Warning!", "Enter positive int number greater than 0.");
+                notifyPopupPresenter.SetView($"Warning!", $"{lengthText} isn't correct value. Enter positive int number greater than 0.");
 
                 Debug.Log("Enter positive int number greater than 0");
             }

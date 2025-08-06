@@ -24,7 +24,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
         private GameMode _gameMode;
         private SequenceGenerator _sequenceGenerator;
         private WalletService _walletService;
-        private VictoryDefeatCounter _victoryDefeatCounter;
+        private WinDefeatCounter _victoryDefeatCounter;
 
         private PlayerDataProvider _playerDataProvider;
         private int _winCost;
@@ -42,7 +42,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
 
             _playerDataProvider = _container.Resolve<PlayerDataProvider>();
             _walletService = _container.Resolve<WalletService>();
-            _victoryDefeatCounter = _container.Resolve<VictoryDefeatCounter>();
+            _victoryDefeatCounter = _container.Resolve<WinDefeatCounter>();
 
             CostsConfig costsConfig = _container.Resolve<ConfigsProviderService>().GetConfig<CostsConfig>();
             _winCost = costsConfig.WinCost;

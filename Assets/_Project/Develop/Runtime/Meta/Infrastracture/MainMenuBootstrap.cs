@@ -17,7 +17,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
         private DIContainer _container;
 
         private WalletService _walletService;
-        private VictoryDefeatCounter _victoryDefeatCounter;
+        private WinDefeatCounter _victoryDefeatCounter;
         private GameResetter _gameResetter;
 
         private PlayerDataProvider _playerDataProvider;
@@ -33,7 +33,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
             Debug.Log("Инициализация сцены главного меню.");
 
             _walletService = _container.Resolve<WalletService>();
-            _victoryDefeatCounter = _container.Resolve<VictoryDefeatCounter>();
+            _victoryDefeatCounter = _container.Resolve<WinDefeatCounter>();
             _gameResetter = _container.Resolve<GameResetter>();
             _playerDataProvider = _container.Resolve<PlayerDataProvider>();
 
@@ -53,7 +53,7 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture
                 Debug.Log($"Золота осталось: {_walletService.GetCurrency(CurrencyTypes.Gold).Value}");
 
             if (Input.GetKeyDown(KeyCode.H))
-                Debug.Log($"Побед: {_victoryDefeatCounter.VictoryCount.Value}, поражений: {_victoryDefeatCounter.DefeatCount.Value}");
+                Debug.Log($"Побед: {_victoryDefeatCounter.WinCount.Value}, поражений: {_victoryDefeatCounter.DefeatCount.Value}");
 
             if (Input.GetKeyDown(KeyCode.R))
                 if (_gameResetter.TryReset())

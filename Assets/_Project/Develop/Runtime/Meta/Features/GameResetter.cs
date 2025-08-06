@@ -7,12 +7,12 @@ namespace Assets._Project.Develop.Runtime.Meta.Features
     public class GameResetter : IDataWriter<PlayerData>
     {
         private WalletService _walletService;
-        private VictoryDefeatCounter _victoryDefeatCounter;
+        private WinDefeatCounter _victoryDefeatCounter;
         private int _resetCost;
 
         private bool _isGameResetted;
 
-        public GameResetter(WalletService walletService, VictoryDefeatCounter victoryDefeatCounter, PlayerDataProvider playerDataProvider, int resetCost)
+        public GameResetter(WalletService walletService, WinDefeatCounter victoryDefeatCounter, PlayerDataProvider playerDataProvider, int resetCost)
         {
             _walletService = walletService;
             _victoryDefeatCounter = victoryDefeatCounter;

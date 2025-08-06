@@ -20,6 +20,8 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
 
         [field: SerializeField] public IconTextListView WalletView { get; private set; }
 
+        [field: SerializeField] public TextListView WinDefeatView { get; private set; }
+
         private void OnEnable()
         {
             _startLettersModeButton.onClick.AddListener(OnStartLettersModeButtonClicked);

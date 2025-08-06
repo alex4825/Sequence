@@ -56,8 +56,8 @@ namespace Assets._Project.Develop.Runtime.Infrastracture.EntryPoint
         private static ProjectPresentersFactory CreateProjectPresentersFactory(DIContainer container)
             => new ProjectPresentersFactory(container);
 
-        private static VictoryDefeatCounter CreateVictoryDefeatCounter(DIContainer container)
-            => new VictoryDefeatCounter(container.Resolve<PlayerDataProvider>());
+        private static WinDefeatCounter CreateVictoryDefeatCounter(DIContainer container)
+            => new WinDefeatCounter(container.Resolve<PlayerDataProvider>());
 
         private static PlayerDataProvider CreatePlayerDataProvider(DIContainer container)
             => new PlayerDataProvider(container.Resolve<ISaveLoadService>(), container.Resolve<ConfigsProviderService>());
