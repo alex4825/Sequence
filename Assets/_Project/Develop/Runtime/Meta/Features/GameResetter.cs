@@ -6,32 +6,34 @@ namespace Assets._Project.Develop.Runtime.Meta.Features
 {
     public class GameResetter : IDataWriter<PlayerData>
     {
-        private WalletService _walletService;
-        private WinDefeatCounter _victoryDefeatCounter;
-        private int _resetCost;
+        private readonly WalletService _walletService;
+        private readonly WinDefeatCounter _winDefeatCounter;
+        private readonly int _resetCost;
 
         private bool _isGameResetted;
 
-        public GameResetter(WalletService walletService, WinDefeatCounter victoryDefeatCounter, PlayerDataProvider playerDataProvider, int resetCost)
+        public GameResetter(WalletService walletService, WinDefeatCounter winDefeatCounter, PlayerDataProvider playerDataProvider, int resetCost)
         {
             _walletService = walletService;
-            _victoryDefeatCounter = victoryDefeatCounter;
+            _winDefeatCounter = winDefeatCounter;
             _resetCost = resetCost;
 
             playerDataProvider.RegisterWriter(this);
         }
 
-        public bool TryReset()
+        public bool TryReset(out int notEnoughCount)
         {
             if (_walletService.Enough(CurrencyTypes.Gold, _resetCost))
             {
                 _walletService.Spend(CurrencyTypes.Gold, _resetCost);
-                _victoryDefeatCounter.Reset();
+                _winDefeatCounter.Reset();
                 _isGameResetted = true;
+                notEnoughCount = 0;
                 return true;
             }
             else
             {
+                notEnoughCount = _resetCost - _walletService.GetCurrency(CurrencyTypes.Gold).Value;
                 return false;
             }
         }
