@@ -1,5 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.Features;
 using Assets._Project.Develop.Runtime.Infrastracture.DI;
+using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.UI.MainMenu;
@@ -26,6 +27,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastracture
             container.RegisterAsSingle(CreateGameplayPresentersFactory);
 
             container.RegisterAsSingle(CreateGameplayPresenter).NonLazy();
+
+            container.RegisterAsSingle(CreateGameplayPopupService);
+        }
+
+        private static GameplayPopupService CreateGameplayPopupService(DIContainer container)
+        {
+            return new GameplayPopupService(
+                container.Resolve<ViewsFactory>(),
+                container.Resolve<ProjectPresentersFactory>(),
+                container.Resolve<UIRoot>());
         }
 
         private static GameplayPresenter CreateGameplayPresenter(DIContainer container)

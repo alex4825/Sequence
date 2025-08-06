@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Other;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.Core
@@ -21,9 +22,20 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
         protected abstract Transform PopupLayer { get; }
 
+        public SmallMessagePopupPresenter OpenSmallMessagePopup()
+        {
+            SmallMessagePopupView view = ViewsFactory.Create<SmallMessagePopupView>(ViewIDs.SmallMessagePopupView, PopupLayer);
+
+            SmallMessagePopupPresenter popup = _presentersFactory.CreateSmallMessagePopupPresenter(view);
+
+            OnPopupCreated(popup, view);
+
+            return popup;
+        }
+
         public NotifyPopupPresenter OpenNotifyPopup()
         {
-            NotifyPopupView view = ViewsFactory.Create<NotifyPopupView>(ViewIDs.NotifyView, PopupLayer);
+            NotifyPopupView view = ViewsFactory.Create<NotifyPopupView>(ViewIDs.NotifyPopupView, PopupLayer);
 
             NotifyPopupPresenter popup = _presentersFactory.CreateNotifyPopupPresenter(view);
 
@@ -38,7 +50,8 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
             popup.Hide(() =>
             {
-                _presenterToInfo[popup].ClosedCallback?.Invoke();
+                if (_presenterToInfo.Keys.Contains(popup))
+                    _presenterToInfo[popup].ClosedCallback?.Invoke();
 
                 DisposeFor(popup);
                 _presenterToInfo.Remove(popup);
@@ -70,7 +83,9 @@ namespace Assets._Project.Develop.Runtime.UI.Core
         private void DisposeFor(PopupPresenterBase popup)
         {
             popup.Dispose();
-            ViewsFactory.Release(_presenterToInfo[popup].View);
+
+            if (_presenterToInfo.Keys.Contains(popup))
+                ViewsFactory.Release(_presenterToInfo[popup].View);
         }
 
         private class PopupInfo

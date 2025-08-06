@@ -1,10 +1,12 @@
-﻿using Assets._Project.Develop.Runtime.Utilities.Reactive;
+﻿using Assets._Project.Develop.Runtime.Infrastracture.DI;
+using Assets._Project.Develop.Runtime.Meta.Features;
+using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using System;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features
 {
-    public class GameplayCycle
+    public class GameplayCycle : IDisposable
     {
         public event Action GameWin;
         public event Action GameDefeat;
@@ -35,7 +37,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
 
             _gameMode = new(randomSequence);
             _sequence.Value = randomSequence;
-            //_gameplayView.SetText(randomSequence);
 
             _gameMode.Win += OnGameModeWin;
             _gameMode.Defeat += OnGameModeDefeat;
@@ -62,8 +63,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
             //_winDefeatCounter.AddDefeat();
 
             //_container.Resolve<ICoroutinesPerformer>().StartPerform(EndGame());
-            GameDefeat?.Invoke();
             EndGame();
+            GameDefeat?.Invoke();
         }
 
         private void OnGameModeWin()
@@ -74,17 +75,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
             //_winDefeatCounter.AddVictory();
 
             //_container.Resolve<ICoroutinesPerformer>().StartPerform(EndGame());
-            GameWin?.Invoke();
             EndGame();
+            GameWin?.Invoke();
         }
 
         private void EndGame()
         {
             //yield return _playerDataProvider.Save();
 
-            _gameMode.Win -= OnGameModeWin;
-            _gameMode.Defeat -= OnGameModeDefeat;
-            _gameMode.SymbolEntered -= OnSymbolEntered;
+            Dispose();
 
             //_restartPopup.SetText($"Press {KeyCode.F.ToString()} to restart or press {KeyCode.Escape.ToString()} to go to menu");
 
@@ -98,6 +97,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
                 OpenMenu();*/
 
             //_restartPopup.Hide();
+        }
+
+        public void Dispose()
+        {
+            if (_gameMode == null)
+                return;
+
+            _gameMode.Win -= OnGameModeWin;
+            _gameMode.Defeat -= OnGameModeDefeat;
+            _gameMode.SymbolEntered -= OnSymbolEntered;
+
+            _gameMode = null;
+
+            _inputText.Value = string.Empty;
         }
 
         /*private void OpenMenu()

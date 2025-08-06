@@ -19,13 +19,15 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
         private Tween _currentAnimation;
 
+        public CanvasGroup Body => _body;
+
         private void Awake()
         {
             _anticklickerDefaultAlpha = _anticklicker.color.a;
             _mainGroup.alpha = 0;
         }
 
-        public void OnCloseButtonClicked() => CloseRequest?.Invoke();
+        public void OnCloseEventCalled() => CloseRequest?.Invoke();
 
         public Tween Show()
         {

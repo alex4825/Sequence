@@ -1,13 +1,6 @@
-﻿using Assets._Project.Develop.Runtime.Configs.Meta;
-using Assets._Project.Develop.Runtime.Infrastracture.DI;
-using Assets._Project.Develop.Runtime.Infrastracture.Meta.Features.Wallet;
-using Assets._Project.Develop.Runtime.Meta.Features;
-using Assets._Project.Develop.Runtime.Utilities.ConfigsManagement;
-using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
-using Assets._Project.Develop.Runtime.Utilities.DataManagement.DataProviders;
+﻿using Assets._Project.Develop.Runtime.Infrastracture.DI;
 using Assets._Project.Develop.Runtime.Utilities.SceneManagement;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Infrastracture.Meta.Infrastracture

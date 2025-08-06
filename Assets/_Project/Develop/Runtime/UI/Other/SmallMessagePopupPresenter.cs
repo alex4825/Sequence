@@ -3,20 +3,19 @@ using Assets._Project.Develop.Runtime.Utilities.CoroutinesManagement;
 
 namespace Assets._Project.Develop.Runtime.UI.Other
 {
-    public class NotifyPopupPresenter : PopupPresenterBase
+    public class SmallMessagePopupPresenter : PopupPresenterBase
     {
-        NotifyPopupView _view;
+        SmallMessagePopupView _view;
 
-        public NotifyPopupPresenter(NotifyPopupView view, ICoroutinesPerformer coroutinesPerformer) : base(coroutinesPerformer)
+        public SmallMessagePopupPresenter(SmallMessagePopupView view, ICoroutinesPerformer coroutinesPerformer) : base(coroutinesPerformer)
         {
             _view = view;
         }
 
         protected override PopupViewBase PopupView => _view;
 
-        public void SetView(string title, string message)
+        public void SetView(string message)
         {
-            _view.SetTitle(title);
             _view.SetMessage(message);
         }
     }

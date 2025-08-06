@@ -29,7 +29,8 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
                 _container.Resolve<ConfigsProviderService>().GetConfig<CostsConfig>(),
                 _container.Resolve<GameplayCycle>(),
                 _container.Resolve<WalletService>(),
-                _container.Resolve<WinDefeatCounter>()
+                _container.Resolve<WinDefeatCounter>(),
+                _container.Resolve<GameplayPopupService>()
                 );
         }
     }

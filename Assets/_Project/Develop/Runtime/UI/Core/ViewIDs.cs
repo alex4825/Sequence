@@ -7,8 +7,9 @@
         public const string WinView = nameof(WinView);
         public const string MainMenuScreen = nameof(MainMenuScreen);
         public const string GameplayScreen = nameof(GameplayScreen);
-        public const string NotifyView = nameof(NotifyView);
+        public const string NotifyPopupView = nameof(NotifyPopupView);
         public const string WinDefeatView = nameof(WinDefeatView);
         public const string UIRoot = nameof(UIRoot);
+        public const string SmallMessagePopupView = nameof(SmallMessagePopupView);
     }
 }

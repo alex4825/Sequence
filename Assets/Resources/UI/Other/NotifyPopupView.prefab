@@ -124,7 +124,7 @@ MonoBehaviour:
       - m_Target: {fileID: 5614141931750046148}
         m_TargetAssemblyTypeName: Assets._Project.Develop.Runtime.UI.Core.PopupViewBase,
           Assembly-CSharp
-        m_MethodName: OnCloseButtonClicked
+        m_MethodName: OnCloseEventCalled
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -258,7 +258,7 @@ MonoBehaviour:
       - m_Target: {fileID: 5614141931750046148}
         m_TargetAssemblyTypeName: Assets._Project.Develop.Runtime.UI.Core.PopupViewBase,
           Assembly-CSharp
-        m_MethodName: OnCloseButtonClicked
+        m_MethodName: OnCloseEventCalled
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1018,7 +1018,7 @@ PrefabInstance:
     - target: {fileID: 1263782626442872084, guid: 0470fcf04000b6145abccf915ad039e5,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnCloseButtonClicked
+      value: OnCloseEventCalled
       objectReference: {fileID: 0}
     - target: {fileID: 1263782626442872084, guid: 0470fcf04000b6145abccf915ad039e5,
         type: 3}

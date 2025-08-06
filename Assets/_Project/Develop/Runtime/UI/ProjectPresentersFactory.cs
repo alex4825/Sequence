@@ -21,6 +21,11 @@ namespace Assets._Project.Develop.Runtime.UI
             _container = container;
         }
 
+        public SmallMessagePopupPresenter CreateSmallMessagePopupPresenter(SmallMessagePopupView view)
+        {
+            return new SmallMessagePopupPresenter(view, _container.Resolve<ICoroutinesPerformer>());
+        }
+
         public WinDefeatPresenter CreateWinDefeatPresenter(TextListView view)
             => new WinDefeatPresenter(this, _container.Resolve<ViewsFactory>(), view, _container.Resolve<WinDefeatCounter>());
 

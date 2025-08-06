@@ -14,12 +14,13 @@ namespace Assets._Project.Develop.Runtime.UI.Core
         {
             {ViewIDs.CurrencyView, "UI/Wallet/CurrencyView" },
             {ViewIDs.MainMenuScreen, "UI/MainMenu/MainMenuScreenView" },
-            {ViewIDs.NotifyView, "UI/Other/NotifyPopupView" },
+            {ViewIDs.NotifyPopupView, "UI/Other/NotifyPopupView" },
             {ViewIDs.WinView, "UI/Other/WinView" },
             {ViewIDs.DefeatView, "UI/Other/DefeatView" },
             {ViewIDs.WinDefeatView, "UI/Other/WinDefeatView" },
             {ViewIDs.GameplayScreen, "UI/Gameplay/GameplayScreenView" },
             {ViewIDs.UIRoot, "UI/UIRoot" },
+            {ViewIDs.SmallMessagePopupView, "UI/Other/SmallMessagePopupView" },
         };
 
         public ViewsFactory(ResourcesAssetsLoader resourcesAssetsLoader)
