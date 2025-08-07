@@ -9,12 +9,10 @@ namespace Assets._Project.Develop.Runtime.UI.Wallet
 {
     public class CurrencyPresenter : IPresenter
     {
-        //Бизнес логика
         private readonly IReadonlyVariable<int> _currency;
         private readonly CurrencyTypes _currencyType;
         private readonly CurrencyIconsConfig _currencyIconsConfig;
 
-        //Визуал
         private IconTextView _view;
 
         private IDisposable _disposable;

@@ -1,6 +1,4 @@
-﻿using Assets._Project.Develop.Runtime.Infrastracture.DI;
-using Assets._Project.Develop.Runtime.Meta.Features;
-using Assets._Project.Develop.Runtime.Utilities.Reactive;
+﻿using Assets._Project.Develop.Runtime.Utilities.Reactive;
 using System;
 using UnityEngine;
 
@@ -59,10 +57,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
         {
             Debug.Log("Defeat");
 
-            //_walletService.Spend(CurrencyTypes.Gold, _defeatCost);
-            //_winDefeatCounter.AddDefeat();
-
-            //_container.Resolve<ICoroutinesPerformer>().StartPerform(EndGame());
             EndGame();
             GameDefeat?.Invoke();
         }
@@ -71,32 +65,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
         {
             Debug.Log("Win");
 
-            //_walletService.Add(CurrencyTypes.Gold, _winCost);
-            //_winDefeatCounter.AddVictory();
-
-            //_container.Resolve<ICoroutinesPerformer>().StartPerform(EndGame());
             EndGame();
             GameWin?.Invoke();
         }
 
         private void EndGame()
         {
-            //yield return _playerDataProvider.Save();
-
             Dispose();
-
-            //_restartPopup.SetText($"Press {KeyCode.F.ToString()} to restart or press {KeyCode.Escape.ToString()} to go to menu");
-
-            // _restartPopup.Show();
-
-            /*yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Escape));
-
-            if (Input.GetKeyDown(KeyCode.F))
-                Launch();
-            else if (Input.GetKeyDown(KeyCode.Escape))
-                OpenMenu();*/
-
-            //_restartPopup.Hide();
         }
 
         public void Dispose()
@@ -112,13 +87,5 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features
 
             _inputText.Value = string.Empty;
         }
-
-        /*private void OpenMenu()
-        {
-            SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
-            ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
-
-            coroutinesPerformer.StartPerform(sceneSwitcherService.ProcesSwitchTo(Scenes.MainMenu));
-        }*/
     }
 }
